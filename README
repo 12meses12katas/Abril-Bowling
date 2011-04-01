@@ -36,3 +36,5 @@ Write some thoughts here about what you have learnt from this Kata. You don't ha
 
 One interesting point to note is that without counting frames in any way (although I don't think this was intended as a 'hard' requirement for the initial Kata completion), finding an elegant way to identify the end of the game/last "real" frame becomes difficult (ie: assuming there are final 'bonus' rolls included in a given test case). Update: After trying various things, including writing out a logic matrix for possible end-of-game combinations, I'm not sure it's possible to detect whether a final 'throw' counts as bonus-only or as part of an actual frame, unless you're counting frames. -- RudyXDesjardins
 KataBowlingByAndreasLarsson
+
+-------- Enunciado original de la Kata: http://codingdojo.org/cgi-bin/wiki.pl?KataBowling 
