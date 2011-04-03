@@ -1,0 +1,36 @@
+Kata de boliche
+===============
+
+La estructura de datos utilizada para almacenar los resultados del juego, es un arreglo de arreglos, 
+con los resultados de dos posibles tiros o tres en el caso de que se haya producido Spare o Strike
+en los ultimos tiros.
+
+por ejemplo:
+@jugada = ( [t1,t2], [t1,t2],[t1,t2],[t1,t2],[t1,t2],[t1,t2],[t1,t2],[t1,t2],[t1,t2],[t1,t2,t3] );
+
+@gutter_balls = ( [0,0], [0,0], [0,0], [0,0], [0,0], [0,0], [0,0], [0,0], [0,0], [0,0] );
+
+@spares = ( [5,5], [5,5], [5,5], [5,5], [5,5], [5,5], [5,5], [5,5], [5,5], [5,5,5] )
+
+@strikes = ( [10,0], [10,0], [10,0], [10,0], [10,0], [10,0], [10,0], [10,0], [10,0], [10,10,10] );
+
+Ejecución
+=========
+
+Opcionalmente puede activarse el modo de depuración, editando el archivo 'bowling_func.pl' y poniendo en uno la variable '$VERBOSE'.
+
+$ vi bowling_func.pl
+  $VERBOSE = 1;
+
+Para realizar la ejecución de pruebas, mediante los siguiente pasos:
+
+$ chmod +x bowling.t
+$ ./bowling.t
+
+alternativamente
+
+$ perl bowling.t
+
+si se desea observar un resumen de las pruebas puede realizarse con:
+
+$ prove bowling.t
