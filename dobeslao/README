@@ -14,6 +14,13 @@ por ejemplo:
 
 @strikes = ( [10,0], [10,0], [10,0], [10,0], [10,0], [10,0], [10,0], [10,0], [10,0], [10,10,10] );
 
+Calculando el puntaje
+=====================
+
+Una buena expliacación sobre el sistema de calificación, disipa las dudas sobre como calificar en el ultimo frame.
+
+http://slocums.homestead.com/gamescore.html
+
 Ejecución
 =========
 
