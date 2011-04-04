@@ -7,6 +7,7 @@
 class Bowling:
 	def __init__(self):
 		self.last='' # Last Throw
+	
 	def play(self,rolls): # Play to Ten-Pin Bowling
 		if rolls is '': return 0
 		score,turns=self.getScore(rolls[0])
@@ -21,4 +22,3 @@ class Bowling:
 		elif throw is '/': return (10-(self.getScore(self.last))[0],1)
 		elif throw in [str(n) for n in range(1,10)]: return (int(throw),0)
 		elif throw is '-': return (0,0)
-
