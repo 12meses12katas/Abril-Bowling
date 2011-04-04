@@ -10,7 +10,10 @@ class TestBowling(unittest.TestCase):
 	# Test Cases
 	tcs={	'XXXXXXXXXXXX':300,
 		'9-9-9-9-9-9-9-9-9-9-':90,
-		'5/5/5/5/5/5/5/5/5/5/5':150}
+		'5/5/5/5/5/5/5/5/5/5/5':150,
+                '--------------------':0,
+		'-/-/-/-/-/-/-/-/-/-/-':100,
+		'436/5-8-7/X726/X65':124}
 
 	# Set Software Under Test
 	def setUp(self):
