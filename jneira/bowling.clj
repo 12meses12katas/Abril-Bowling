@@ -1,8 +1,16 @@
 (ns bowling
   (:use (midje sweet)))
 
-(future-fact "The game score is the total of all frame scores"
-      (game-score)=> (roughly 150 150))
+(unfinished game-score)
+(unfinished frame-score)
+
+(fact "The game score is the total of all frame scores"
+      (game-score ..frames..)=> 150
+      (provided
+       (reduce + (map frame-score ..frames..)) => 150))
+
+(fact "Each game includes ten turns or frames"
+      "Not validated") 
 
 (future-fact "Each game includes ten turns or frames")
 
