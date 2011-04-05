@@ -10,11 +10,15 @@ class TestBowling(unittest.TestCase):
 	# Test Cases
 	tcs={	'XXXXXXXXXXXX':300,
 		'9-9-9-9-9-9-9-9-9-9-':90,
+<<<<<<< HEAD
 		'5/5/5/5/5/5/5/5/5/5/5':150,
                 '--------------------':0,
 		'-/-/-/-/-/-/-/-/-/-/-':100,
 		'17524181276236547114':77,
 		'436/5-8-7/X726/X65':124}
+=======
+		'5/5/5/5/5/5/5/5/5/5/5':150}
+>>>>>>> upstream/master
 
 	# Set Software Under Test
 	def setUp(self):
