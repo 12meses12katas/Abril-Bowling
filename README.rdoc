@@ -30,8 +30,8 @@ What makes this game interesting to score is the lookahead in the scoring for st
 When scoring +X+ indicates a strike, <tt>/</tt> indicates a spare, <tt>-</tt> indicates a miss:
 
 * <b>12 rolls: 12 strikes:</b> +XXXXXXXXXXXX+  <tt>= 10+10+10 + 10+10+10 + 10+10+10 + 10+10+10 + 10+10+10 + 10+10+10 + 10+10+10 + 10+10+10 + 10+10+10 + 10+10+10 = 300</tt>
-* <b>20 rolls: 10 pairs of 9 and miss:</b> +9-9-9-9-9-9-9-9-9-9-+  <tt>= 9 + 9 + 9 + 9 + 9 + 9 + 9 + 9 + 9 + 9 = 90</tt>
-* <b>21 rolls: 10 pairs of 5 and spare, with a final 5:</b> +5/5/5/5/5/5/5/5/5/5/5+  <tt>= 10+5 + 10+5 + 10+5 + 10+5 + 10+5 + 10+5 + 10+5 + 10+5 + 10+5 + 10+5 = 150</tt>
+* <b>20 rolls: 10 pairs of 9 and miss:</b> <tt>9-9-9-9-9-9-9-9-9-9- = 9 + 9 + 9 + 9 + 9 + 9 + 9 + 9 + 9 + 9 = 90</tt>
+* <b>21 rolls: 10 pairs of 5 and spare, with a final 5:</b> <tt>5/5/5/5/5/5/5/5/5/5/5 = 10+5 + 10+5 + 10+5 + 10+5 + 10+5 + 10+5 + 10+5 + 10+5 + 10+5 + 10+5 = 150</tt>
 
 ==Comments from those who have mastered this Kata
 
