@@ -1,5 +1,0 @@
-C:\Users\root\12Katas\Abril-Bowling\eltoby\Bowling\Bowling.Logic\obj\Debug\ResolveAssemblyReference.cache
-C:\Users\root\12Katas\Abril-Bowling\eltoby\Bowling\Bowling.Logic\bin\Debug\Bowling.Logic.dll
-C:\Users\root\12Katas\Abril-Bowling\eltoby\Bowling\Bowling.Logic\bin\Debug\Bowling.Logic.pdb
-C:\Users\root\12Katas\Abril-Bowling\eltoby\Bowling\Bowling.Logic\obj\Debug\Bowling.Logic.dll
-C:\Users\root\12Katas\Abril-Bowling\eltoby\Bowling\Bowling.Logic\obj\Debug\Bowling.Logic.pdb
