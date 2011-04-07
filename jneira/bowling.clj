@@ -13,7 +13,7 @@
 (fact "Each game includewes ten turns or frames"
       "Not validated") 
 
-(unfinished tries)
+(defn tries [frame] [nil nil])
 
 (fact "In each frame, the bowler gets up to
        two tries to knock down all the pins."
