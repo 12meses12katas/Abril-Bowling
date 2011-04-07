@@ -13,9 +13,11 @@
 (fact "Each game includewes ten turns or frames"
       "Not validated") 
 
-(future-fact "Each game includes ten turns or frames")
+(unfinished tries)
 
-(future-fact "In each frame, the bowler gets up to two tries to knock down all the pins.")
+(fact "In each frame, the bowler gets up to
+       two tries to knock down all the pins."
+      (count (tries ..frame..))=> 2 )
 
 (future-fact "If in two tries, he fails to knock them all down, his score for that frame is the total number of pins knocked down in his two tries.")
 
