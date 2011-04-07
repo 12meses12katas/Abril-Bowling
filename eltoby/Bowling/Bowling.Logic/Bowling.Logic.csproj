@@ -33,6 +33,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BowlingCalculator.cs" />
     <Compile Include="Frame.cs" />
     <Compile Include="LastFrame.cs" />
     <Compile Include="Line.cs" />
