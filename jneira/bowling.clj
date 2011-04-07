@@ -2,7 +2,8 @@
   (:use (midje sweet)))
  
 (unfinished game-score)
-(unfinished frame-score)
+(defn game-score [frames]
+  (reduce frame-score frames))
 
 (fact "The game score is the total of all frame scores"
       (game-score ..frames..) => ..game-score..
