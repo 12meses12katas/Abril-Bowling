@@ -1,6 +1,5 @@
 require "rspec"
 
-
 class BowlingScoreCalculator
 
   def score(game)
@@ -8,6 +7,7 @@ class BowlingScoreCalculator
     score = 0
     frame = 1
     in_middle_frame = false
+
     rolls.each_with_index do | roll, index |
       break if frame > 10
       score += roll_value(rolls, index)
