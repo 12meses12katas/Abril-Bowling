@@ -19,16 +19,18 @@
        two tries to knock down all the pins."
       (count (tries ..frame..))=> 2 )
 
-(unfinished sum)
-(unfinished get-pins-knocked)
+(unfinished get-knocked-pins)
+(unfinished regular-trie)
+
+(defn frame-score [])
 
 (fact "If in two tries, he fails to knock them all down,
        his score for that frame is the total number of pins
        knocked down in his two tries."
       (frame-score ..frame..) => ..pins..
       (provided
-       (< ..pins.. ..total-pins..) => truthy 
-       (sum (get-pins-knocked ..frame..))=> ..pins..))
+       (get-knocked-pins ..frame..) => ..pins..
+       (regular-trie ..pins..) => truthy))
 
 (future-fact "If in two tries he knocks them all down, this is called a spare and his score for the frame is ten plus the number of pins knocked down on his next throw (in his next turn)")
 
