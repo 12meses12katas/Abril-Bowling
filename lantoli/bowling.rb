@@ -17,12 +17,8 @@ class BowlingScoreCalculator
         score += roll_value(rolls, index+1)
         score += roll_value(rolls, index+2) if roll == "X"
       else
-        if in_middle_frame
-            in_middle_frame = false
-            frame += 1
-        else
-          in_middle_frame = true
-        end
+        frame += 1 if in_middle_frame
+        in_middle_frame = !in_middle_frame
       end
     end
     score
