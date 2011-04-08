@@ -5,31 +5,21 @@ class BowlingScoreCalculator
 
   def score(game)
     rolls = (game + "--").chars.to_a
-    prev = nil
-    rollsNumeric = rolls.collect do | roll |
-      prev = case roll
-        when "X" then 10
-        when "/" then 10-prev
-        when "-" then 0
-        else roll.to_i
-      end
-    end
-
     score = 0
     frame = 1
     in_middle_frame = false
     rolls.each_with_index do | roll, index |
       break if frame > 10
-      score += rollsNumeric[index]
+      score += roll_value(rolls, index)
       case roll
         when "/"
           in_middle_frame = false
           frame += 1
-          score += rollsNumeric[index+1]
+          score += roll_value(rolls, index+1)
         when "X"
           in_middle_frame = false
           frame += 1
-          score += rollsNumeric[index+1] + rollsNumeric[index+2]
+          score += roll_value(rolls, index+1) + roll_value(rolls, index+2)
         else
           if in_middle_frame
               in_middle_frame = false
@@ -41,6 +31,18 @@ class BowlingScoreCalculator
     end
     score
   end
+
+  private
+
+  def roll_value(rolls, index)
+    case rolls[index]
+      when "X" then 10
+      when "/" then 10 - roll_value(rolls, index-1)
+      when "-" then 0
+      else rolls[index].to_i
+    end
+  end
+
 end
 
 describe "Bowling score cases." do
