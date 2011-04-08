@@ -22,7 +22,9 @@
 (unfinished get-knocked-pins)
 (unfinished regular-trie)
 
-(defn frame-score [])
+(defn frame-score [frame]
+  (let [pins (get-knocked-pins frame)]
+    (if (regular-trie pins) pins)))
 
 (fact "If in two tries, he fails to knock them all down,
        his score for that frame is the total number of pins
