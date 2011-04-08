@@ -5,10 +5,10 @@ class BowlingScoreCalculator
 
   def score(game)
 
-    prev = 3  # quitar
     rolls = (game + "--").chars.to_a
+    prev = nil
     rollsNumeric = rolls.collect do | roll |
-      case roll
+      prev = case roll
         when "X" then 10
         when "/" then 10-prev
         when "-" then 0
@@ -19,39 +19,36 @@ class BowlingScoreCalculator
     score = 0
     frame = 0
     rolls.each_with_index do | roll, index |
-      frame += 1
+ #     break if (frame += 1) > 10
       score += rollsNumeric[index]
       score += rollsNumeric[index+1]  if roll == "/"
       score += rollsNumeric[index+1] + rollsNumeric[index+2] if roll == "X"
-      break if frame == 10
     end
     score
   end
 end
 
 
-describe "Bowling simple cases" do
+describe "Bowling score cases." do
 
   before do
     @subject = BowlingScoreCalculator.new
   end
 
-  SCORES =  { "1111111111" => 10, "2222222222" => 20, "XXXXXXXXXXXX" => 300}
+  {
+      "11111111111111111111" => 20,
+      "22222222222222222222" => 40,
+      "--------------------" => 0,
+      "9-9-9-9-9-9-9-9-9-9-" => 90,
+      "4/-6----------------" => 16,
+      "7/-6----------------" => 16,
 
-  SCORES.each do | game, expected_score |
+  #    "5/5/5/5/5/5/5/5/5/5/5" => 150,
+  #    "XXXXXXXXXXXX" => 300,
+
+  }.each do | game, expected_score |
     it("return score #{expected_score} given game #{game}") do
       @subject.score(game).should == expected_score
     end
   end
-
-#  STRIKES =  { "X111111111" => 12}
-STRIKES = {}
-
-  
-  STRIKES.each do | game, expected_score |
-    it("return score #{expected_score} given game #{game}") do
-      @subject.score(game).should == expected_score
-    end
-  end
-
 end
