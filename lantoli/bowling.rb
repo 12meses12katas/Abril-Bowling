@@ -4,29 +4,25 @@ require "rspec"
 class BowlingScoreCalculator
 
   def score(game)
-    rolls = (game + "--").chars.to_a
+    rolls = game.chars.to_a
     score = 0
     frame = 1
     in_middle_frame = false
     rolls.each_with_index do | roll, index |
       break if frame > 10
       score += roll_value(rolls, index)
-      case roll
-        when "/"
-          in_middle_frame = false
-          frame += 1
-          score += roll_value(rolls, index+1)
-        when "X"
-          in_middle_frame = false
-          frame += 1
-          score += roll_value(rolls, index+1) + roll_value(rolls, index+2)
+      if roll == "/" || roll == "X"
+        in_middle_frame = false
+        frame += 1
+        score += roll_value(rolls, index+1)
+        score += roll_value(rolls, index+2) if roll == "X"
+      else
+        if in_middle_frame
+            in_middle_frame = false
+            frame += 1
         else
-          if in_middle_frame
-              in_middle_frame = false
-              frame += 1
-          else
-            in_middle_frame = true
-          end
+          in_middle_frame = true
+        end
       end
     end
     score
