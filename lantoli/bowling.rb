@@ -9,17 +9,8 @@ class BowlingScoreCalculator
     in_middle_frame = false
 
     rolls.each_with_index do | roll, index |
-      break if frame > 10
-      score += roll_value(rolls, index)
-      if roll == "/" || roll == "X"
-        in_middle_frame = false
-        frame += 1
-        score += roll_value(rolls, index+1)
-        score += roll_value(rolls, index+2) if roll == "X"
-      else
-        frame += 1 if in_middle_frame
-        in_middle_frame = !in_middle_frame
-      end
+      score += roll_score(rolls, index, frame)
+      frame, in_middle_frame = update_frame(roll, frame, in_middle_frame)
     end
     score
   end
@@ -35,6 +26,20 @@ class BowlingScoreCalculator
     end
   end
 
+  def roll_score(rolls, index, frame)
+    return 0 if frame > 10
+    roll_value(rolls, index) + case rolls[index]
+        when "X" then roll_value(rolls, index+1) + roll_value(rolls, index+2)
+        when "/" then roll_value(rolls, index+1)
+        else 0
+    end
+  end
+
+  def update_frame(roll, frame, in_middle_frame)
+      return frame+1,false if roll == "/" || roll == "X"
+      return frame+1,!in_middle_frame if in_middle_frame
+      return frame,!in_middle_frame
+  end
 end
 
 describe "Bowling score cases." do
