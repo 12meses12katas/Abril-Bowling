@@ -55,7 +55,17 @@ class BowlingTest extends PHPUnit_Framework_TestCase {
         return $testCases;
     }
 
+    public function testProviderIsStrike(){
+        $testCases = array();
+        $testCases['with XXX should return true'] = array('XXX', true);
+        $testCases['with 1- should return false'] = array('1-', false);
+        $testCases['with 5/1 should return false'] = array('5/-', false);
+        $testCases['with X5/- should return true'] = array('X5/-', true);
+
+        return $testCases;
+    }
     
+
     /**
      * @dataProvider testProviderValueOfFrame
      */
@@ -72,6 +82,12 @@ class BowlingTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals($expected, $b->getFirstFrameForSequence($sequence));
     }
 
-    
+    /**
+     * @dataProvider testProviderIsStrike
+     */
+    public function testIsStrike($frame, $expected){
+        $b = new Bowling();
+        $this->assertEquals($expected, $b->isStrike($frame));
+    }
 
 }

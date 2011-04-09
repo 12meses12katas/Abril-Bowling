@@ -54,6 +54,8 @@ class Bowling {
         return substr($sequence, 0, 2);
     }
 
-    
+    public function isStrike($frame){
+        return (substr($frame, 0, 1) == 'X') ? true : false;
+    }
     
 } 
