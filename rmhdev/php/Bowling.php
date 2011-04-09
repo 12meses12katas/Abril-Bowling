@@ -55,7 +55,15 @@ class Bowling {
     }
 
     public function isStrike($frame){
-        return (substr($frame, 0, 1) == 'X') ? true : false;
+        return (strpos($frame, 'X') === 0) ? true : false;
     }
+
+    public function isSpare($frame){
+        return (strpos($frame, '/') === 1) ? true : false;
+    }
+    
+    
+
+
     
 } 

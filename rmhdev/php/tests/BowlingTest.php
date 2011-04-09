@@ -61,6 +61,16 @@ class BowlingTest extends PHPUnit_Framework_TestCase {
         $testCases['with 1- should return false'] = array('1-', false);
         $testCases['with 5/1 should return false'] = array('5/-', false);
         $testCases['with X5/- should return true'] = array('X5/-', true);
+        $testCases['with 5/X should return false'] = array('5/X', false);
+
+        return $testCases;
+    }
+
+    public function testProviderIsSpare(){
+        $testCases = array();
+        $testCases['with XXX should return false'] = array('XXX', false);
+        $testCases['with 1- should return false'] = array('1-', false);
+        $testCases['with X5/- should return false'] = array('X5/-', false);
 
         return $testCases;
     }
@@ -88,6 +98,14 @@ class BowlingTest extends PHPUnit_Framework_TestCase {
     public function testIsStrike($frame, $expected){
         $b = new Bowling();
         $this->assertEquals($expected, $b->isStrike($frame));
+    }
+
+    /**
+     * @dataProvider testProviderIsSpare
+     */
+    public function testIsSpare($frame, $expected){
+        $b = new Bowling();
+        $this->assertEquals($expected, $b->isSpare($frame));
     }
 
 }
