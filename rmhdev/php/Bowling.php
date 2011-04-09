@@ -41,5 +41,19 @@ class Bowling {
         }
         return $total;
     }
+
+    public function getFirstFrameForSequence($sequence) {
+        if (substr($sequence, 0, 1) == '-'){
+            return '-';
+        }
+        $firstThree = substr($sequence, 0, 3);
+
+        if ((strpos($firstThree, 'X') !== false) || (strpos($firstThree, '/') !== false)){
+            return $firstThree;
+        }
+        return substr($sequence, 0, 2);
+    }
+
+    
     
 } 

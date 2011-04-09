@@ -37,6 +37,25 @@ class BowlingTest extends PHPUnit_Framework_TestCase {
         return $testCases;
     }
 
+    public function testProviderFirstFrameForSequence(){
+        $testCases = array();
+        $testCases['with ---- should return -']     = array('----', '-');
+        $testCases['with 1--- should return 1-']    = array('1---', '1-');
+        $testCases['with 22-- should return 22']    = array('22--', '22');
+        $testCases['with 5/-- should return 5/-']   = array('5/--', '5/-');
+        $testCases['with X--- should return X--']   = array('X---', 'X--');
+        $testCases['with X11- should return X11']   = array('X11-', 'X11');
+        $testCases['with X5/- should return X5/']   = array('X5/-', 'X5/');
+        $testCases['with 5/X- should return 5/X']   = array('5/X-', '5/X');
+        // Watch out! Last round is special
+        $testCases['with XXX should return XXX']    = array('XXX', 'XXX');
+        $testCases['with 5/1 should return 5/1']    = array('5/1', '5/1');
+        $testCases['with 1 should return 1']        = array('1', '1');
+
+        return $testCases;
+    }
+
+    
     /**
      * @dataProvider testProviderValueOfFrame
      */
@@ -44,5 +63,15 @@ class BowlingTest extends PHPUnit_Framework_TestCase {
         $b = new Bowling();
         $this->assertEquals($expected, $b->getValueOfFrame($frame));
     }
+
+    /**
+     * @dataProvider testProviderFirstFrameForSequence
+     */
+    public function testFirstFrameForSequence($sequence, $expected){
+        $b = new Bowling();
+        $this->assertEquals($expected, $b->getFirstFrameForSequence($sequence));
+    }
+
+    
 
 }
