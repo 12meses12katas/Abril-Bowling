@@ -67,9 +67,6 @@ class Bowling {
      * @return string
      */
     public function getNextSequence($sequence) {
-        if (strlen($sequence) <= 3){
-            return '';
-        }
         return substr($sequence, $this->isStrike($sequence) ? 1 : 2);
     }
     
@@ -79,12 +76,11 @@ class Bowling {
      */
     public function getGameScore($sequence){
         $score = 0;
-        while ($sequence){
+        for($i=1; $i<=10; $i++){
             $frame = $this->getFirstFrameForSequence($sequence);
             $score += $this->getScoreOfFrame($frame);
             $sequence = $this->getNextSequence($sequence);
         }
-
         return $score;
     }
 } 
