@@ -50,6 +50,7 @@ class Bowling {
                 $frame = 'X';
             } else {
                 $char2="";//(string)$game{current++};
+                //$char2=$game[$current++];
                 $frame = "$char$char2";
             }
             array_push($result, $frame);
