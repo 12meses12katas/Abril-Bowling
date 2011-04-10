@@ -18,7 +18,7 @@ class Bowling {
 
 
     public function getValueOfFrame($frame) {
-        if ($frame == '-'){
+        if ($frame == '--'){
             return 0;
         }
         $total = 0;
@@ -29,7 +29,7 @@ class Bowling {
                 $total += 10;
                 $last = 0;
             }
-            if ($bowl == '/') {
+            elseif ($bowl == '/') {
                 $total = $total + 10 - $last;
                 $last = 0;
             }
@@ -43,27 +43,29 @@ class Bowling {
     }
 
     public function getFirstFrameForSequence($sequence) {
-        if (substr($sequence, 0, 1) == '-'){
-            return '-';
+        $firstTwo = substr($sequence, 0, 2);
+        if ((strpos($firstTwo, 'X') !== false) || (strpos($firstTwo, '/') !== false)){
+            return substr($sequence, 0, 3);
         }
-        $firstThree = substr($sequence, 0, 3);
-
-        if ((strpos($firstThree, 'X') !== false) || (strpos($firstThree, '/') !== false)){
-            return $firstThree;
-        }
-        return substr($sequence, 0, 2);
+        return $firstTwo;
     }
 
     public function isStrike($frame){
         return (strpos($frame, 'X') === 0) ? true : false;
     }
+    
+    /**
+     * @param string $sequence
+     * @return int
+     */
+    public function getGameScore($sequence){
+        $score = 0;
+        for($i=1; $i<=10; $i++){
+            $frame = $this->getFirstFrameForSequence($sequence);
+            $score += $this->getValueOfFrame($frame);
+            $sequence = substr($sequence, $this->isStrike($frame) ? 1 : 2);
+        }
 
-    public function isSpare($frame){
-        return (strpos($frame, '/') === 1) ? true : false;
+        return $score;
     }
-    
-    
-
-
-    
 } 
