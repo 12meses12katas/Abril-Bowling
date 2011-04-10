@@ -21,28 +21,13 @@ class Bowling {
      * @return int
      */
     public function getScoreOfFrame($frame) {
-        if ($frame == '--'){
+        if (in_array($frame, array('', '-', '--'))){
             return 0;
         }
-        $total = 0;
-        $last = 0;
-        $bowls = str_split($frame);
-        foreach ($bowls as $bowl){
-            if ($bowl == 'X'){
-                $total += 10;
-                $last = 0;
-            }
-            elseif ($bowl == '/') {
-                $total = $total + 10 - $last;
-                $last = 0;
-            }
-            else {
-                $total += (int)$bowl;
-                $last = (int)$bowl;
-            }
-            
+        if ($this->isStrikeOrSpare($frame)){
+            return 10 + $this->getScoreOfFrame(substr($frame, $this->isStrike($frame) ? 1 : 2));
         }
-        return $total;
+        return (int)substr($frame, 0, 1) + $this->getScoreOfFrame(substr($frame, 1));
     }
 
     /**
@@ -50,11 +35,7 @@ class Bowling {
      * @return string
      */
     public function getFirstFrameForSequence($sequence) {
-        $firstTwo = substr($sequence, 0, 2);
-        if ($this->isStrike($firstTwo) || $this->isSpare($firstTwo)){
-            return substr($sequence, 0, 3);
-        }
-        return $firstTwo;
+        return substr($sequence, 0, $this->isStrikeOrSpare($sequence) ? 3 : 2);
     }
 
     /**
@@ -71,6 +52,14 @@ class Bowling {
      */
     public function isSpare($frameOrSequence){
         return (strpos($frameOrSequence, '/') === 1) ? true : false;
+    }
+
+    /**
+     * @param string $frameOrSequence
+     * @return boolean
+     */
+    public function isStrikeOrSpare($frameOrSequence){
+        return ($this->isStrike($frameOrSequence) || $this->isSpare($frameOrSequence)) ? true : false;
     }
 
     /**

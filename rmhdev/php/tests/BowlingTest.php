@@ -20,6 +20,7 @@ class BowlingTest extends PHPUnit_Framework_TestCase {
 
     public function testProviderScoreOfFrame(){
         $testCases = array();
+        // Legal frames
         $testCases['with -- should return 0']   = array('--', 0);
         $testCases['with 1- should return 1']   = array('1-', 1);
         $testCases['with -1 should return 1']   = array('-1', 1);
@@ -41,7 +42,9 @@ class BowlingTest extends PHPUnit_Framework_TestCase {
 
     public function testProviderFirstFrameForSequence(){
         $testCases = array();
+        // Sequences
         $testCases['with ---- should return --']    = array('----', '--');
+        $testCases['with -- should return --']      = array('--', '--');
         $testCases['with 1--- should return 1-']    = array('1---', '1-');
         $testCases['with 22-- should return 22']    = array('22--', '22');
         $testCases['with 22X- should return 22']    = array('22X-', '22');
@@ -51,6 +54,7 @@ class BowlingTest extends PHPUnit_Framework_TestCase {
         $testCases['with X11- should return X11']   = array('X11-', 'X11');
         $testCases['with X5/- should return X5/']   = array('X5/-', 'X5/');
         $testCases['with 5/X- should return 5/X']   = array('5/X-', '5/X');
+        
 
         return $testCases;
     }
@@ -157,5 +161,4 @@ class BowlingTest extends PHPUnit_Framework_TestCase {
         $b = new Bowling();
         $this->assertEquals($expected, $b->getGameScore($sequence));
     }
-
 }
