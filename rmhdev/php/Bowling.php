@@ -16,8 +16,11 @@
 
 class Bowling {
 
-
-    public function getValueOfFrame($frame) {
+    /**
+     * @param string $frame
+     * @return int
+     */
+    public function getScoreOfFrame($frame) {
         if ($frame == '--'){
             return 0;
         }
@@ -42,16 +45,43 @@ class Bowling {
         return $total;
     }
 
+    /**
+     * @param string $sequence
+     * @return string
+     */
     public function getFirstFrameForSequence($sequence) {
         $firstTwo = substr($sequence, 0, 2);
-        if ((strpos($firstTwo, 'X') !== false) || (strpos($firstTwo, '/') !== false)){
+        if ($this->isStrike($firstTwo) || $this->isSpare($firstTwo)){
             return substr($sequence, 0, 3);
         }
         return $firstTwo;
     }
 
-    public function isStrike($frame){
-        return (strpos($frame, 'X') === 0) ? true : false;
+    /**
+     * @param string $frameOrSequence
+     * @return boolean
+     */
+    public function isStrike($frameOrSequence){
+        return (strpos($frameOrSequence, 'X') === 0) ? true : false;
+    }
+
+    /**
+     * @param string $frameOrSequence
+     * @return boolean
+     */
+    public function isSpare($frameOrSequence){
+        return (strpos($frameOrSequence, '/') === 1) ? true : false;
+    }
+
+    /**
+     * @param string $sequence
+     * @return string
+     */
+    public function getNextSequence($sequence) {
+        if (strlen($sequence) <= 3){
+            return '';
+        }
+        return substr($sequence, $this->isStrike($sequence) ? 1 : 2);
     }
     
     /**
@@ -60,10 +90,10 @@ class Bowling {
      */
     public function getGameScore($sequence){
         $score = 0;
-        for($i=1; $i<=10; $i++){
+        while ($sequence){
             $frame = $this->getFirstFrameForSequence($sequence);
-            $score += $this->getValueOfFrame($frame);
-            $sequence = substr($sequence, $this->isStrike($frame) ? 1 : 2);
+            $score += $this->getScoreOfFrame($frame);
+            $sequence = $this->getNextSequence($sequence);
         }
 
         return $score;
