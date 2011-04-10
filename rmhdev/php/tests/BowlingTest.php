@@ -18,13 +18,13 @@ include __DIR__ . "/../Bowling.php";
 
 class BowlingTest extends PHPUnit_Framework_TestCase {
 
-    public function testProviderValueOfFrame(){
+    public function testProviderScoreOfFrame(){
         $testCases = array();
-        $testCases['with -- should return 0'] = array('--', 0);
-        $testCases['with 1- should return 1'] = array('1-', 1);
-        $testCases['with -1 should return 1'] = array('-1', 1);
-        $testCases['with 11 should return 2'] = array('11', 2);
-        $testCases['with 12 should return 3'] = array('12', 3);
+        $testCases['with -- should return 0']   = array('--', 0);
+        $testCases['with 1- should return 1']   = array('1-', 1);
+        $testCases['with -1 should return 1']   = array('-1', 1);
+        $testCases['with 11 should return 2']   = array('11', 2);
+        $testCases['with 12 should return 3']   = array('12', 3);
         $testCases['with 5/- should return 10'] = array('5/-', 10);
         $testCases['with -/- should return 10'] = array('-/-', 10);
         $testCases['with 5/1 should return 11'] = array('5/1', 11);
@@ -66,6 +66,33 @@ class BowlingTest extends PHPUnit_Framework_TestCase {
         return $testCases;
     }
 
+    public function testProviderIsSpare(){
+        $testCases = array();
+        $testCases['with XXX should return false']  = array('XXX', false);
+        $testCases['with 1- should return false']   = array('1-', false);
+        $testCases['with 5/1 should return true']   = array('5/-', true);
+        $testCases['with X5/- should return false'] = array('X5/-', false);
+        $testCases['with 5/X should return true']   = array('5/X', true);
+
+        return $testCases;
+    }
+
+    public function testProviderNextSequence(){
+        $testCases = array();
+        $testCases['with ---- should return --']    = array('----', '--');
+        $testCases['with 1--- should return --']    = array('1---', '--');
+        $testCases['with X--- should return ---']   = array('X---', '---');
+        $testCases['with 1111 should return 11']    = array('1111', '11');
+        $testCases['with 5/11 should return 11']    = array('5/11', '11');
+        $testCases['with X5/1 should return 5/1']   = array('X5/1', '5/1');
+        //special cases: last frame has 3 balls max
+        $testCases['with 5/1 should return empty']  = array('5/1', '');
+        $testCases['with -- should return empty']   = array('--', '');
+        $testCases['with XXX should return empty']  = array('XXX', '');
+
+        return $testCases;
+    }
+
     public function testProviderGetGameScore(){
         $testCases = array();
         $testCases['with perfect game should return 300'] = array('XXXXXXXXXXXX', 300);
@@ -82,14 +109,13 @@ class BowlingTest extends PHPUnit_Framework_TestCase {
         
         return $testCases;
     }
-    
 
     /**
-     * @dataProvider testProviderValueOfFrame
+     * @dataProvider testProviderScoreOfFrame
      */
-    public function testValueOfFrame($frame, $expected){
+    public function testScoreOfFrame($frame, $expected){
         $b = new Bowling();
-        $this->assertEquals($expected, $b->getValueOfFrame($frame));
+        $this->assertEquals($expected, $b->getScoreOfFrame($frame));
     }
 
     /**
@@ -106,6 +132,22 @@ class BowlingTest extends PHPUnit_Framework_TestCase {
     public function testIsStrike($frame, $expected){
         $b = new Bowling();
         $this->assertEquals($expected, $b->isStrike($frame));
+    }
+
+    /**
+     * @dataProvider testProviderIsSpare
+     */
+    public function testIsSpare($frame, $expected){
+        $b = new Bowling();
+        $this->assertEquals($expected, $b->isSpare($frame));
+    }
+
+    /**
+     * @dataProvider testProviderNextSequence
+     */
+    public function testNextSequence($sequence, $expected){
+        $b = new Bowling();
+        $this->assertEquals($expected, $b->getNextSequence($sequence));
     }
 
     /**
