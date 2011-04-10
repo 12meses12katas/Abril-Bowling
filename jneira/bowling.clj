@@ -1,9 +1,10 @@
 (ns bowling
   (:use (midje sweet)))
  
-(unfinished game-score)
 (defn game-score [frames]
   (reduce frame-score frames))
+
+(unfinished frame-score)
 
 (fact "The game score is the total of all frame scores"
       (game-score ..frames..) => ..game-score..
@@ -19,22 +20,35 @@
        two tries to knock down all the pins."
       (count (tries ..frame..))=> 2 )
 
-(unfinished get-knocked-pins)
-(unfinished regular-trie)
+(unfinished knocked-pins-this-throw)
+(unfinished regular-throw?)
 
 (defn frame-score [frame]
-  (let [pins (get-knocked-pins frame)]
-    (if (regular-trie pins) pins)))
+  (let [pins (knocked-pins-this-throw frame)]
+    (if (regular-throw? pins) pins)))
 
 (fact "If in two tries, he fails to knock them all down,
        his score for that frame is the total number of pins
        knocked down in his two tries."
       (frame-score ..frame..) => ..pins..
       (provided
-       (get-knocked-pins ..frame..) => ..pins..
-       (regular-trie ..pins..) => truthy))
+       (knocked-pins-this-throw ..frame..) => ..pins..
+       (regular-throw? ..pins..) => truthy))
 
-(future-fact "If in two tries he knocks them all down, this is called a spare and his score for the frame is ten plus the number of pins knocked down on his next throw (in his next turn)")
+(unfinished spare?)
+(unfinished knocked-pins-next-throw)
+(unfinished bonus-score)
+
+(fact "If in two tries he knocks them all down,
+       this is called a spare and his score for the frame is
+       ten plus the number of pins knocked down on his next throw
+       (in his next turn)"
+      (frame-score ..frames..) => ..result..
+      (provided
+       (knocked-pins-this-throw ..frames..) => ..pins..
+       (spare? ..pins..) => truthy
+       (knocked-pins-next-throw ..frames..) => ..next-pins..
+       (bonus-score 10 ..next-pins..) => ..result..))
 
 (future-fact "If on his first try in the frame he knocks down all the pins, this is called a strike. His turn is over, and his score for the frame is ten plus the simple total of the pins knocked down in his next two rolls.")
 
