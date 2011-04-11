@@ -81,6 +81,42 @@ class BowlingTest extends PHPUnit_Framework_TestCase {
         return $testCases;
     }
 
+    public function testProviderIsZeroPin(){
+        $testCases = array();
+        $testCases['with empty should return true'] = array(''      , true);
+        $testCases['with - should return true']     = array('-'     , true);
+        $testCases['with -- should return true']    = array('--'    , true);
+        $testCases['with 1- should return false']   = array('1-'    , false);
+        $testCases['with 5/- should return false']  = array('5/-'   , false);
+        $testCases['with X- should return false']   = array('X-'    , false);
+
+        return $testCases;
+    }
+
+    public function testProviderNextPartOfFrame(){
+        $testCases = array();
+        $testCases['with -- should return -']       = array('--'    , '-');
+        $testCases['with 1- should return -']       = array('1-'    , '-');
+        $testCases['with 5/- should return -']      = array('5/-'   , '-');
+        $testCases['with 5/X should return X']      = array('5/X'   , 'X');
+        $testCases['with X-- should return --']     = array('X--'   , '--');
+        $testCases['with X5/ should return 5/']     = array('X5/'   , '5/');
+
+        return $testCases;
+    }
+
+    public function testProviderValueOfFirstPartOfFrame(){
+        $testCases = array();
+        $testCases['with empty should return 0']    = array(''      , 0);
+        $testCases['with - should return 0']        = array('-'     , 0);
+        $testCases['with --- should return 0']      = array('---'   , 0);
+        $testCases['with 1- should return 1']       = array('1-'    , 1);
+        $testCases['with 5/- should return 10']     = array('5/-'   , 10);
+        $testCases['with X- should return 10']      = array('X-'    , 10);
+
+        return $testCases;
+    }
+
     public function testProviderNextSequence(){
         $testCases = array();
         $testCases['with ---- should return --']    = array('----', '--');
@@ -145,6 +181,30 @@ class BowlingTest extends PHPUnit_Framework_TestCase {
     public function testIsSpare($frame, $expected){
         $b = new Bowling();
         $this->assertEquals($expected, $b->isSpare($frame));
+    }
+
+    /**
+     * @dataProvider testProviderIsZeroPin
+     */
+    public function testIsZeroPin($frame, $expected){
+        $b = new Bowling();
+        $this->assertEquals($expected, $b->isZeroPin($frame));
+    }
+
+    /**
+     * @dataProvider testProviderNextPartOfFrame
+     */
+    public function testNextPartOfFrame($frame, $expected){
+        $b = new Bowling();
+        $this->assertEquals($expected, $b->getNextPartOfFrame($frame));
+    }
+
+    /**
+     * @dataProvider testProviderValueOfFirstPartOfFrame
+     */
+    public function testValueOfFirstPartOfFrame($frame, $expected){
+        $b = new Bowling();
+        $this->assertEquals($expected, $b->getValueOfFirstPartOfFrame($frame));
     }
 
     /**

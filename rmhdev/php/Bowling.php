@@ -21,13 +21,30 @@ class Bowling {
      * @return int
      */
     public function getScoreOfFrame($frame) {
-        if (in_array($frame, array('', '-', '--'))){
+        if ($this->isZeroPin($frame)){
             return 0;
         }
+        return $this->getValueOfFirstPartOfFrame($frame) +
+               $this->getScoreOfFrame($this->getNextPartOfFrame($frame));
+    }
+
+    /**
+     * @param string $frame
+     * @return string
+     */
+    public function getValueOfFirstPartOfFrame($frame) {
         if ($this->isStrikeOrSpare($frame)){
-            return 10 + $this->getScoreOfFrame(substr($frame, $this->isStrike($frame) ? 1 : 2));
+            return 10;
         }
-        return (int)substr($frame, 0, 1) + $this->getScoreOfFrame(substr($frame, 1));
+        return (int)substr($frame, 0, 1);
+    }
+
+    /**
+     * @param string $frame
+     * @return string
+     */
+    public function getNextPartOfFrame($frame) {
+        return substr($frame, $this->isSpare($frame) ? 2 : 1);
     }
 
     /**
@@ -52,6 +69,14 @@ class Bowling {
      */
     public function isSpare($frameOrSequence){
         return (strpos($frameOrSequence, '/') === 1) ? true : false;
+    }
+
+    /**
+     * @param string $frameOrSequence
+     * @return boolean
+     */
+    public function isZeroPin($frameOrSequence){
+        return in_array($frameOrSequence, array('', '-', '--')) ? true : false;
     }
 
     /**
