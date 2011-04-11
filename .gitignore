@@ -4,3 +4,4 @@ jcorbacho/Bowling/.settings
 jcorbacho/Bowling/.classpath
 jcorbacho/Bowling/.project
 *.class 
+.gitignore
