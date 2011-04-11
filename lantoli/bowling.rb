@@ -66,6 +66,9 @@ describe "Bowling score cases." do
       "XXXXXXXXXXXX"          => 300,
       "14456/5/X-17/6/X2/6" => 133,
       "X7/9-X-88/-6XXX81" => 167,
+      "------------------X23" => 15,
+      "----------------X23" => 20,
+
 
   }.each do | game, expected_score |
     it("return score #{expected_score} given game #{game}") do
