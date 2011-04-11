@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-4.6.dtd">
 <!-- eric4 project file for project Abril-Bowling -->
-<!-- Saved: 2011-04-10, 23:58:01 -->
+<!-- Saved: 2011-04-11, 06:38:26 -->
 <!-- Copyright (C) 2011 aabilio, aabilio@gmail.com -->
 <Project version="4.6">
   <Language></Language>
@@ -12,8 +12,9 @@
   <Author>aabilio</Author>
   <Email>aabilio@gmail.com</Email>
   <Sources>
-    <Source>bowling.py</Source>
     <Source>__init__.py</Source>
+    <Source>bowling.py</Source>
+    <Source>testBowling.py</Source>
   </Sources>
   <Forms>
   </Forms>
@@ -24,6 +25,7 @@
   <Interfaces>
   </Interfaces>
   <Others>
+    <Other>README</Other>
   </Others>
   <MainScript>bowling.py</MainScript>
   <Vcs>
