@@ -53,13 +53,13 @@ class Bowling(object):
             elif s[i] is '/':
                 rsult += 10 + self.__num(s[i+1])
             else:
-                try:
+                try: # Chapucilla para que sea más legible
                     if s[i+1] is '/':
                        pass
                     else:
                         rsult += self.__num(s[i])
                 except IndexError:
-                    pass
+                    rsult += self.__num(s[i])
         
         return rsult
         
