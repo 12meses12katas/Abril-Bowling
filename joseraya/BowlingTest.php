@@ -13,10 +13,14 @@ class BowlingTest extends PHPUnit_Framework_TestCase {
         $game = new Bowling('9-9-9-9-9-9-9-9-9-9-');
         $this->assertEquals(90, $game->score());
     }
-
-    public function testAllFramesWithTwoNumbers() {
-        $game = new Bowling('12121212121212121212');
-        $this->assertEquals(30, $game->score());
+    
+    public function testOneStrike() {
+        $game = new Bowling('X121212121212121212');
+        $this->assertEquals(43, $game->score());
     }
-
+    
+    public function testAllStrikes() {
+        $game = new Bowling('XXXXXXXXXXXX');
+        $this->assertEquals(300, $game->score());
+    }
 }
