@@ -2,12 +2,14 @@ package net.corbacho.AbrilBowling;
 
 public class Bowling {
 
+    private final int numberOfFrames = 10;
     private int currentFrame;
-    
+
     public Bowling() {
         super();
-        this.currentFrame=0;
+        this.currentFrame = 0;
     }
+
 
     public int getTryValue(char myChar) {
 
@@ -28,71 +30,41 @@ public class Bowling {
     }
 
     public int getFrameValue(String frame) {
-
         int value = this.getTryValue(frame.charAt(0));
 
-        if (frame.charAt(0) != 'X' && frame.charAt(0) != '/' && 
-                frame.length() > 2 && frame.charAt(1) == '/') {  
-
-            // If starts with number or "-" and then there is spare (having more strikes)
-            value = this.getTryValue(frame.charAt(1)) + this.getTryValue(frame.charAt(2));
-
-        }else if (frame.charAt(0) != 'X' && frame.charAt(0) != '/' && 
-                frame.length() > 1 && frame.charAt(1) == '/') {  
-
-            // If starts with number or "-" and then there is spare (no having more strikes)
-            value = this.getTryValue(frame.charAt(1));
-            
-        } else if (frame.charAt(0) != 'X' && frame.charAt(0) != '/' &&
-                frame.length() > 1) {
-
-            // If starts with number or "-" and then there is not spare
-            value += this.getTryValue(frame.charAt(1));
-            
-        }else if (frame.charAt(0) == 'X' && frame.length() == 2){
-            
-            // If we have strike and there is one frame more
-            value += this.getTryValue(frame.charAt(1));
-        
-        }else if (frame.charAt(0) == 'X' && frame.length() > 2){
-            
-            // If we have strike and there is at least two frame more
-            int aux1= this.getTryValue(frame.charAt(1));
-            int aux2 = this.getTryValue(frame.charAt(2));
-            value += aux2;
-            
-            if (aux1 == 10 || aux2 != 10 ){
-                value += aux1;
+        if (frame.charAt(0) == 'X') {
+            int auxRoll1 = this.getTryValue(frame.charAt(1));
+            int auxRoll2 = this.getTryValue(frame.charAt(2));
+                
+            if (auxRoll1 <10 && auxRoll2 ==10){
+                value +=10;
+            } else {
+                value += auxRoll1 + auxRoll2;                
             }
+            
+        } else if (frame.charAt(1) == '/') {
+            value = 10 +this.getTryValue(frame.charAt(2));
+
+        } else {
+            value += this.getTryValue(frame.charAt(1));
         }
-     
 
         return value;
     }
 
-    public int getScore(String myString) {
-
+    public int getScore(String rolls) {
         int score = 0;
         int index = 0;
-        boolean finishedGame = false;
-        while (currentFrame < 10 && !finishedGame) {
-
-            score += this.getFrameValue(myString.substring(index));
-
-            if (myString.charAt(index) != 'X' && myString.charAt(index) != '/') {
-                index = index + 2;
-
-            } else {
-                index = index + 1;
-            }
-
+        while (this.currentFrame < this.numberOfFrames) {
             currentFrame++;
-            
-            if (index >= myString.length())
-                finishedGame = true;
+            score += this.getFrameValue(rolls.substring(index));
+            if (rolls.charAt(index) == 'X')
+                index ++;
+            else
+                index += 2;
         }
-
         return score;
     }
+
 
 }
