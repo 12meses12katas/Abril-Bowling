@@ -40,7 +40,7 @@ class Bowling {
                 return $this->hasAFrameAt($position + 2);
             }
         }
-        return true;
+        return $position<10;
     }
 
     private function scoreForFrameAt($position) {
