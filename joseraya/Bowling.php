@@ -1,7 +1,9 @@
 <?php
 
 class Bowling {
-
+    const STRIKE='X';
+    const MISS='/';
+    
     private $frames = array();
 
     public function __construct($game) {
@@ -11,31 +13,38 @@ class Bowling {
     public function score() {
         $score = 0;
         $currentFramePosition = 0;
-        while ($currentFramePosition < count($this->frames)) {
-            $score += $this->scoreForFrameAt($currentFramePosition++);
+        while ($this->shouldCountFrameAt($currentFramePosition)) {
+            $score += $this->scoreForFrameAt($currentFramePosition);
+
+            if ($this->hasAStrikeAt($currentFramePosition)) {
+                $score += $this->scoreForFrameAt($currentFramePosition + 1);
+                
+                if ($this->hasAStrikeAt($currentFramePosition + 1)) {
+                    $score += $this->scoreForFrameAt($currentFramePosition + 2);
+                }
+            }
+            ++$currentFramePosition;
         }
         return $score;
+    }
+
+    private function shouldCountFrameAt($position) {
+        if (!$this->hasAFrameAt($position)) {
+            return false;
+        }
+        if ($this->hasAStrikeAt($position)) {
+            if (!$this->hasAFrameAt($position + 1)) {
+                return false;
+            }
+            if ($this->hasAStrikeAt($position + 1)) {
+                return $this->hasAFrameAt($position + 2);
+            }
+        }
+        return true;
     }
 
     private function scoreForFrameAt($position) {
-        if ($position > 9 ) {
-            return 0;
-        }
         $frame = $this->frames[$position];
-        
-        $score = $this->scoreForSingleFrame($frame);
-        
-        if ($this->frameIsStrike($frame)) {
-            if ($this->thereIsAFrameAt($position + 2)) {
-                $score += $this->scoreForSingleFrame($this->frames[$position + 2]);
-                $score += $this->scoreForSingleFrame($this->frames[$position + 1]);
-            } 
-            
-        }
-        return $score;
-    }
-
-    private function scoreForSingleFrame($frame) {
         $score = 0;
         $array = preg_split('//', $frame, -1, PREG_SPLIT_NO_EMPTY);
         foreach ($array as $roll) {
@@ -52,16 +61,17 @@ class Bowling {
         return $score;
     }
 
-    private function frameIsStrike($frame) {
-        return $frame == "X";
+    private function hasAStrikeAt($position) {
+        $frame = $this->frames[$position];
+        return $frame == Bowling::STRIKE;
     }
 
-    private function thereIsAFrameAt($position) {
+    private function hasAFrameAt($position) {
         return $position < count($this->frames);
     }
 
     private function rollIsMiss($char) {
-        return $char === "-";
+        return $char == Bowling::MISS;
     }
 
     private function rollIsNumber($char) {
@@ -69,19 +79,17 @@ class Bowling {
     }
 
     private function rollIsStrike($char) {
-        return $char == "X";
+        return $char == Bowling::STRIKE;
     }
 
     private function parseFrames($game) {
         $result = array();
-        $array = preg_split('//', $game, -1, PREG_SPLIT_NO_EMPTY);
         $current = 0;
         while ($current < strlen($game)) {
             $char = $game[$current++];
             if ($this->rollIsStrike($char)) {
-                $frame = 'X';
+                $frame = Bowling::STRIKE;
             } else {
-                //$char2 = ""; //(string)$game{current++};
                 $char2 = $game[$current++];
                 $frame = "$char$char2";
             }
