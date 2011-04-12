@@ -3,6 +3,8 @@
  
 (unfinished frame-score)
 
+;; Fact 1
+
 (fact "The game score is the total of all frame scores"
       (game-score ..frames..) => ..game-score..
       (provided
@@ -11,8 +13,12 @@
 (defn game-score [frames]
   (reduce frame-score frames))
 
+;; Fact
+
 (fact "Each game includes ten turns or frames"
       "Not validated") 
+
+;; Fact 2
 
 (unfinished tries)
 
@@ -21,6 +27,8 @@
       (count (tries ..frame..))=> 2 )
 
 (defn tries [frame] [nil nil])
+
+;; Fact 3
 
 (unfinished knocked-pins-this-throw)
 (unfinished regular-throw?)
@@ -36,6 +44,8 @@
 (defn frame-score [frame]
   (let [pins (knocked-pins-this-throw frame)]
     (if (regular-throw? pins) pins)))
+
+;; Fact 4
 
 (unfinished spare?)
 (unfinished knocked-pins-next-throw)
@@ -60,12 +70,12 @@
     (if (spare? pins) (bonus-score 10 next-throw-pins)
         (if (regular-throw? pins) pins))))
 
+;; Fact 5
+
 (unfinished strike?)
 (unfinished next-throws)
 (unfinished actual-frame)
 (unfinished knocked-pins)
-
-(defn regular-throw? [frame])
 
 (fact "If on his first try in the frame he knocks down all the pins,
        this is called a strike. His turn is over, and his score
@@ -77,5 +87,19 @@
        (strike? ..actual..) => truthy
        (next-throws ..frames.. 2) => ..throws..
        (bonus-score ..throws.. 10) => ..result..))
+
+(defn regular-throw? [frame])
+
+(defn frame-score [frames]
+  (let [frame (actual-frame frames)]
+    (if (regular-throw? frame)
+      (knocked-pins frame)
+      (let [n (cond (strike? frame) 2
+                    (spare? frame) 1)
+            throws (next-throws frames n)
+            bonus (bonus-score throws 10)]
+        bonus))))
+
+;; Fact 6
 
 (future-fact "If he gets a spare or strike in the last (tenth) frame, the bowler gets to throw one or two more bonus balls, respectively. These bonus throws are taken as part of the same turn. If the bonus throws knock down all the pins, the process does not repeat: the bonus throws are only used to calculate the score of the final frame.")
