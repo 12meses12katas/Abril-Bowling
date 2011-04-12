@@ -102,4 +102,23 @@
 
 ;; Fact 6
 
-(future-fact "If he gets a spare or strike in the last (tenth) frame, the bowler gets to throw one or two more bonus balls, respectively. These bonus throws are taken as part of the same turn. If the bonus throws knock down all the pins, the process does not repeat: the bonus throws are only used to calculate the score of the final frame.")
+(unfinished last-frame?)
+
+(fact "If he gets a spare or strike in the last (tenth) frame,
+       the bowler gets to throw one or two more bonus balls,
+       respectively.
+       These bonus throws are taken as part of the same turn.
+       If the bonus throws knock down all the pins,
+       the process does not repeat: the bonus throws are only used
+       to calculate the score of the final frame."
+      (last-frame? ..frames.. ..actual..) => truthy
+      (actual-frame ..frames..) => ..actual..
+      (strike? ..actual..) => truthy
+      (next-throws ..frames.. 2) => ..throws..)
+
+(defn last-frame? [frames actual] true)
+(defn actual-frame [frames] ..actual..)
+(defn strike? [frame] true)
+(defn next-throws [frames n] ..throws..)
+
+
