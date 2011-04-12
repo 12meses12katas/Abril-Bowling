@@ -5,33 +5,37 @@ class Bowling {
     private $frames = array();
 
     public function __construct($game) {
-        $this->frames = $this->getFrames($game);
+        $this->frames = $this->parseFrames($game);
     }
 
     public function score() {
         $score = 0;
-        $current = 0;
-        while ($current < count($this->frames)) {
-            $score += $this->scoreForFrame($current++);
+        $currentFramePosition = 0;
+        while ($currentFramePosition < count($this->frames)) {
+            $score += $this->scoreForFrameAt($currentFramePosition++);
         }
         return $score;
     }
 
-    private function scoreForFrame($current) {
-        $score = $this->scoreForSingleFrame($current);
-        if ($this->frameIsStrike($this->frames[$current]) && ($current < 9)) {
-            if ($current + 1 < count($this->frames)) {
-                $score += $this->scoreForSingleFrame($current + 1);
-            }
-            if ($current + 2 < count($this->frames)) {
-                $score += $this->scoreForSingleFrame($current + 2);
-            }
+    private function scoreForFrameAt($position) {
+        if ($position > 9 ) {
+            return 0;
+        }
+        $frame = $this->frames[$position];
+        
+        $score = $this->scoreForSingleFrame($frame);
+        
+        if ($this->frameIsStrike($frame)) {
+            if ($this->thereIsAFrameAt($position + 2)) {
+                $score += $this->scoreForSingleFrame($this->frames[$position + 2]);
+                $score += $this->scoreForSingleFrame($this->frames[$position + 1]);
+            } 
+            
         }
         return $score;
     }
 
-    private function scoreForSingleFrame($current) {
-        $frame = $this->frames[$current];
+    private function scoreForSingleFrame($frame) {
         $score = 0;
         $array = preg_split('//', $frame, -1, PREG_SPLIT_NO_EMPTY);
         foreach ($array as $roll) {
@@ -48,6 +52,14 @@ class Bowling {
         return $score;
     }
 
+    private function frameIsStrike($frame) {
+        return $frame == "X";
+    }
+
+    private function thereIsAFrameAt($position) {
+        return $position < count($this->frames);
+    }
+
     private function rollIsMiss($char) {
         return $char === "-";
     }
@@ -55,14 +67,12 @@ class Bowling {
     private function rollIsNumber($char) {
         return $char > '0' && $char <= '9';
     }
-    private function frameIsStrike($frame) {
-        return $frame == "X";
-    }
+
     private function rollIsStrike($char) {
         return $char == "X";
     }
 
-    private function getFrames($game) {
+    private function parseFrames($game) {
         $result = array();
         $array = preg_split('//', $game, -1, PREG_SPLIT_NO_EMPTY);
         $current = 0;
