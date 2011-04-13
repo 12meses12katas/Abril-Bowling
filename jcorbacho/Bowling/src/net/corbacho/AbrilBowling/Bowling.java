@@ -2,51 +2,69 @@ package net.corbacho.AbrilBowling;
 
 public class Bowling {
 
-	public static int GetCharValue(char myChar){
+    private final int numberOfFrames = 10;
+    private int currentFrame;
 
-		Character myCharacter = myChar;
-		int value = 0;
-		if (myCharacter.equals('X') || myCharacter.equals('/')) {
-			value = 10;
-		} else if (myCharacter.equals('-')) {
-			value = 0;
-		} else {
-			value = Integer.parseInt(myCharacter.toString());
-		}
-		return value;
-	}
+    public Bowling() {
+        super();
+        this.currentFrame = 0;
+    }
 
 
-	public static int GetValue(String myString) {
+    public int getTryValue(char myChar) {
 
-		int score = 0;
-		for (int i = 0; i < myString.length(); i++) {
-			//TODO Modificar esta condicion
-			if ((myString.length() > 10) && (i < myString.length()-2)) {
-				Character myCharacter = myString.charAt(i);
+        Character myCharacter = myChar;
+        int value = 0;
+        if (myCharacter.equals('X') || myCharacter.equals('/')) {
+            value = 10;
 
-				if (myCharacter.equals('X') || myCharacter.equals('/') ) {
-					score += 10;
+        } else if (myCharacter.equals('-')) {
+            value = 0;
 
-					if (i + 1 < myString.length()) {
-						score += GetCharValue(myString.charAt(i+1));
+        } else {
+            value = Integer.parseInt(myCharacter.toString());
 
-						if ((myCharacter.equals('X')) && (i+2<myString.length())) {
-							score += GetCharValue(myString.charAt(i+2));
-						}
-					}
+        }
 
-				} else if (myCharacter.equals('-')) {
-					score += 0;
-				} else {
-					score += Integer.parseInt(myCharacter.toString());
-				}
+        return value;
+    }
 
-			}
+    public int getFrameValue(String frame) {
+        int value = this.getTryValue(frame.charAt(0));
 
-			}
+        if (frame.charAt(0) == 'X') {
+            int auxRoll1 = this.getTryValue(frame.charAt(1));
+            int auxRoll2 = this.getTryValue(frame.charAt(2));
+                
+            if (auxRoll1 <10 && auxRoll2 ==10){
+                value +=10;
+            } else {
+                value += auxRoll1 + auxRoll2;                
+            }
+            
+        } else if (frame.charAt(1) == '/') {
+            value = 10 +this.getTryValue(frame.charAt(2));
 
-		return score;
-	}
+        } else {
+            value += this.getTryValue(frame.charAt(1));
+        }
+
+        return value;
+    }
+
+    public int getScore(String rolls) {
+        int score = 0;
+        int index = 0;
+        while (this.currentFrame < this.numberOfFrames) {
+            currentFrame++;
+            score += this.getFrameValue(rolls.substring(index));
+            if (rolls.charAt(index) == 'X')
+                index ++;
+            else
+                index += 2;
+        }
+        return score;
+    }
+
 
 }
