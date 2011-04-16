@@ -13,7 +13,16 @@ public class Bowling {
 			} else if ("/".equals(actValue)) {
 				actResult = 10 - actResult
 						+ valueOfThrow(String.valueOf(throwings.charAt(i + 1)));
+			} else if ("X".equals(actValue)) {
+				if (i + 1 >= throwings.length() || i + 2 >= throwings.length())
+					break;
+				actResult = 10
+						+ valueOfThrow(String.valueOf(throwings.charAt(i + 1)))
+						+ valueOfThrow(String.valueOf(throwings.charAt(i + 2)));
 			} else {
+				if (i > 0 && i == (throwings.length() - 1)
+						&& "/".equals(String.valueOf(throwings.charAt(i - 1))))
+					break;
 				actResult = Integer.parseInt(actValue);
 			}
 
@@ -25,7 +34,11 @@ public class Bowling {
 
 	private static int valueOfThrow(String throwValue) {
 		int result = 0;
-		result = Integer.parseInt(throwValue);
+		if ("X".equals(throwValue)) {
+			result = 10;
+		} else {
+			result = Integer.parseInt(throwValue);
+		}
 		return result;
 	}
 }
