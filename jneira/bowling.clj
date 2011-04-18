@@ -96,5 +96,5 @@
        If the bonus throws knock down all the pins,
        the process does not repeat: the bonus throws are only used
        to calculate the score of the final frame."
-     "Implied in previous facts" )
+     "Implicit in previous facts" )
 
