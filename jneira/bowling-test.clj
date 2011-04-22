@@ -73,7 +73,7 @@
        (knocked-pins [5 5 5]) => 10)
 
 (facts "About bonus score"
-       "It returns nil if any of inputs is nil or throws is empty"
+       "It returns 0 if any of inputs is nil or throws is empty"
        (bonus-score nil 0) => 0
        (bonus-score [] 0)=> 0
        "It returns the sum of the knocked pins plus the bonus"
@@ -86,7 +86,8 @@
        (regular-throw? [])=> true
        "It return true only if the sum of knocked pins is
         less than total pins"
-       (regular-throw? [5 4]) => true
+       (and (regular-throw? [5 4])
+            (= total-pins 10)) => true
        (provided
         (knocked-pins [5 4]) => 9)
        (regular-throw? [10 0]) => false
@@ -97,7 +98,8 @@
        (spare? nil) => false
        (spare? []) => false
        "It returns true if the sum of knocked pins is equal to total-pins"
-       (spare? [3 7]) => true
+       (and (spare? [3 7])
+            (= total-pins 10)) => true
        (provided (knocked-pins [3 7]) => 10)
        (spare? [10 0]) => true)
 
@@ -106,8 +108,9 @@
        (strike? nil) => false
        (strike? []) => false
        "It returns true only if all pins was knocked in the first throw"
-       (strike? [10]) => true
-       (strike? [6 4]) => false)
+       (and (strike? [10])
+            (= total-pins 10)) => true
+       (strike? [6 4]) => false)  
 
 (facts "About next throws"
        "It returns nil if frames is nil or empty"
