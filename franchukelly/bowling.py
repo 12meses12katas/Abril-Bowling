@@ -11,6 +11,7 @@ class Game (object):
         self.score = 0
         self.frames = []
         self.__current_frame = []
+        self.__multiplier = [1 for i in range (2)]
 
     def roll (self, pins_down):
         """
@@ -30,8 +31,16 @@ class Game (object):
                                        ' %d' % Game._max_number_of_frames)
 
         # Add roll score to final score and to the current frame
-        self.score += pins_down
+        self.score += self.__multiplier.pop (0) * pins_down
+        self.__multiplier.append (1)
         self.__current_frame.append (pins_down)
+
+        # An strike
+        if pins_down == 10:
+            self.__multiplier = [i + 1 for i in self.__multiplier]
+        # An spare
+        elif sum (self.__current_frame) == 10:
+            self.__multiplier[0] += 1
 
         # The current frame is over, when there are two rolls or an strike
         if len (self.__current_frame) == 2 or pins_down == 10:
