@@ -33,6 +33,9 @@ class Game (object):
             self.__current_frame = []
 
 
+class NumberOfFramesError (Exception):
+    pass
+
 class PinsDownError (Exception):
     pass
 

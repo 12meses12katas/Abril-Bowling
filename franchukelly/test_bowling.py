@@ -2,7 +2,7 @@
 
 import unittest
 
-from bowling import Game, PinsDownError
+from bowling import Game, NumberOfFramesError, PinsDownError
 
 
 class TestBowling (unittest.TestCase):
@@ -25,6 +25,19 @@ class TestBowling (unittest.TestCase):
         self.assertRaises (PinsDownError, self.game.roll, 6)
         self.game.roll (4)
         self.assertEqual (self.game.score, 9)
+
+    def test_number_of_frames (self):
+        """
+        Tests the number of frames and rolls in a game.
+        A bowling game has ten frames, and each frame has two rolls.
+        """
+        for i in range (10):
+            self.game.roll (1)
+            self.game.roll (1)
+            self.assertEqual (len (self.game.frames[i]), 2)
+
+        self.assertEqual (len (self.game.frames), 10)
+        self.assertRaises (NumberOfFramesError, self.game.roll, 1)
 
 
 if __name__ == '__main__':
