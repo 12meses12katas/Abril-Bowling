@@ -33,7 +33,8 @@ class Game (object):
         self.score += pins_down
         self.__current_frame.append (pins_down)
 
-        if len (self.__current_frame) == 2:
+        # The current frame is over, when there are two rolls or an strike
+        if len (self.__current_frame) == 2 or pins_down == 10:
             self.frames.append (self.__current_frame)
             self.__current_frame = []
 
