@@ -5,6 +5,7 @@ class Game (object):
     """
     Represents a bowling game.
     """
+    _max_number_of_frames = 10
 
     def __init__ (self):
         self.score = 0
@@ -23,6 +24,10 @@ class Game (object):
              and self.__current_frame[0] + pins_down > 10:
             raise PinsDownError ('the number of pins down in a frame can\'t ' \
                                  'be greater than ten')
+
+        elif len (self.frames) == Game._max_number_of_frames:
+            raise NumberOfFramesError ('the maximum number of frames must be' \
+                                       ' %d' % Game._max_number_of_frames)
 
         # Add roll score to final score and to the current frame
         self.score += pins_down
