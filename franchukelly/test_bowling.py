@@ -58,6 +58,26 @@ class TestBowling (unittest.TestCase):
 
         self.assertEqual (self.game.score, 20)
 
+    def test_spare_score (self):
+        """
+        Tests the partial score of an spare.
+        The score of an spare is ten plus the score of the following roll.
+        """
+        self.game.roll (9)
+        self.game.roll (1)
+        self.game.roll (1)
+        self.assertEqual (self.game.score, 12)
+
+    def test_strike_score (self):
+        """
+        Tests the partial score of an strike.
+        The score of an strike is ten plus the score of the following two rolls.
+        """
+        self.game.roll (10)
+        self.game.roll (1)
+        self.game.roll (1)
+        self.assertEqual (self.game.score, 14)
+
 
 if __name__ == '__main__':
     unittest.main ()
