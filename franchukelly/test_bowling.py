@@ -39,6 +39,15 @@ class TestBowling (unittest.TestCase):
         self.assertEqual (len (self.game.frames), 10)
         self.assertRaises (NumberOfFramesError, self.game.roll, 1)
 
+    def test_frame_with_strike (self):
+        """
+        Tests a frame with an strike.
+        When the bowler gets an strike, the frame is over.
+        """
+        self.game.roll (10)
+        self.assertEqual (len (self.game.frames), 1)
+        self.assertEqual (len (self.game.frames[0]), 1)
+
 
 if __name__ == '__main__':
     unittest.main ()
