@@ -48,6 +48,16 @@ class TestBowling (unittest.TestCase):
         self.assertEqual (len (self.game.frames), 1)
         self.assertEqual (len (self.game.frames[0]), 1)
 
+    def test_final_score_without_strikes_and_spares (self):
+        """
+        Tests the final score of a game without any strike or spare.
+        """
+        for i in range (10):
+            self.game.roll (1)
+            self.game.roll (1)
+
+        self.assertEqual (self.game.score, 20)
+
 
 if __name__ == '__main__':
     unittest.main ()
