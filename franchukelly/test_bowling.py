@@ -78,6 +78,32 @@ class TestBowling (unittest.TestCase):
         self.game.roll (1)
         self.assertEqual (self.game.score, 14)
 
+    def test_final_score_with_all_spares (self):
+        """
+        Tests the final score of a bowling game with all spares.
+        """
+        for i in range (10):
+            self.game.roll (1)
+            self.game.roll (9)
+
+        self.assertEqual (self.game.score, 109)
+        # When the last frame is an spare, bowler gets an extra roll
+        self.game.roll (1)
+        self.assertEqual (self.game.score, 110)
+
+    def test_final_score_with_all_strikes (self):
+        """
+        Tests the final score of a bowling game with all strikes.
+        """
+        for i in range (10):
+            self.game.roll (10)
+
+        self.assertEqual (self.game.score, 270)
+        # When the last frame is an strike, bowler gets two extra rolls
+        self.game.roll (10)
+        self.game.roll (10)
+        self.assertEqual (self.game.score, 300)
+
 
 if __name__ == '__main__':
     unittest.main ()
