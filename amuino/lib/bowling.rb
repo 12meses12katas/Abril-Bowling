@@ -5,11 +5,13 @@ class Array
     
   def to_frame
     if first == "X"
-      Frame.new(:strike, 10)
+      Frame.new(:strike, [10, nil])
     elsif second == "/"
-      Frame.new(:spare, first.to_i)
-    else
-      Frame.new(:miss, first.to_i)
+      Frame.new(:spare, [first.to_i, 10-first.to_i])
+    elsif second == "-"
+      Frame.new(:miss, [first.to_i, 0])
+    else 
+      Frame.new(:normal, [first.to_i, second.to_i])
     end
   end
 end
@@ -20,24 +22,27 @@ class Frame
   def initialize(kind, simple_score)
     @kind = kind
     @simple_score = simple_score
-    @score = kind == :miss ? @simple_score : 10
+    @score = simple_score.compact.inject(0, :+)
   end
   
   def score(next_frames = [])
     case kind
       when :miss then 
-        simple_score
+        @score
+      when :normal then 
+        @score
       else 
-        10 + bonus_frames(next_frames).inject(0) {|accum, f| accum + f.simple_score }
+        10 + bonus_throws(next_frames)
     end
   end
   
-  def bonus_frames(next_frames)
+  def bonus_throws(next_frames)
+    return 0 if next_frames.nil? || next_frames.empty?
     case kind 
       when :spare  then 
-        next_frames[0..0]
+        next_frames.first.simple_score.first.to_i
       when :strike then       
-        next_frames[0..1]
+        next_frames[0..1].collect { |frame| frame.simple_score }.flatten.compact[0..1].inject(0, :+)
     end
   end
 end
@@ -61,6 +66,6 @@ class BowlingTotalizer
   end
   
   def self.raw_frames(game)
-    game.scan(%r{(X|[0-9])(-|/)?})
+    game.scan(%r{(X)|(-|[0-9])([1-9]|-|/)?}).collect {|x| x.compact}
   end
 end
