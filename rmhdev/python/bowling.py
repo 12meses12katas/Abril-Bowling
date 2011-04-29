@@ -33,15 +33,17 @@ def removeFirstPins(sequence):
 
 def getScoreOfFrame(frame):
     score = 0
+    last = 0
     for pin in frame: 
         if pin == "-":
             score += 0
         elif pin == "X":
             score += 10
         elif pin == "/":
-            score = 10
+            score += 10 - last
         else:
-            score += int(pin)
+            last = int(pin)
+            score += last
     return score
 
 def isStrike(frameOrSequence):
