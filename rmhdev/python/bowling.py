@@ -12,17 +12,14 @@ __copyright__ = "Copyright (c) 2011 Rober Martín H"
 __license__ = "MIT License"
 
 def getScore(sequence):
-    if sequence[:2] == "-1":
-        return 1
-    if sequence[:2] == "-2":
-        return 2
-    if sequence[:2] == "-3":
-        return 3
-    if sequence[:2] == "-/":
-        return 10
-    if sequence[0] == "-":
-        return 0
-    if sequence[0] == "X":
-        return 10
-
-    return int(sequence[0])
+    score = 0
+    for pin in sequence[:2]: 
+        if pin == "-":
+            score += 0
+        elif pin == "X":
+            score += 10
+        elif pin == "/":
+            score = 10
+        else:
+            score += int(pin)
+    return score 
