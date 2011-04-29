@@ -2,7 +2,7 @@
 # coding: utf-8
 
 """
-Kata trying to resolve the Bolwling problem using TDD
+Kata trying to resolve the Bowling problem using TDD
 """
 
 __author__ = "Rober Martín H"
@@ -20,6 +20,10 @@ def getScore(sequence):
     return score + getScore(restOfSequence)
 
 def getFirstFrame(sequence):
+    if len(sequence) > 1 and sequence[1] == "/":
+        return sequence[:3]
+    if sequence[0] == "X":
+        return sequence[:3]
     return sequence[:2]
 
 def removeFirstPins(sequence):
