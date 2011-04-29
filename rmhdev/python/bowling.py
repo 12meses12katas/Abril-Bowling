@@ -11,13 +11,13 @@ __date__ = "2011-04-26"
 __copyright__ = "Copyright (c) 2011 Rober Martín H"
 __license__ = "MIT License"
 
-def getScore(sequence):
-    if sequence == "":
-        return 0
-    frame = getFirstFrame(sequence)
-    restOfSequence = removeFirstPins(sequence)
-    score = getScoreOfFrame(frame)
-    return score + getScore(restOfSequence)
+def getScore(sequence): 
+    score = 0
+    for i in range(10):
+        frame = getFirstFrame(sequence)
+        sequence = removeFirstPins(sequence)
+        score += getScoreOfFrame(frame)
+    return score
 
 def getFirstFrame(sequence):
     if isSpare(sequence):
