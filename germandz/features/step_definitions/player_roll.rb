@@ -1,11 +1,12 @@
 Given /^a score card with "([^"]*)"$/ do |notation|
-  @score_card = @score_card = Bowling.create_game("caf")
+  @score_card = Bowling.create_game
+  @score_card.notation = notation
 end
 
 When /^I ask the total points$/ do
-  @total_points = @score_card.total_points
+  @total_score = @score_card.total_score
 end
 
-Then /^I should see (\d+)$/ do |total_points|
-  @total_points.should == total_points.to_i
+Then /^I should see (\d+)$/ do |total_score|
+  @total_score.should == total_score.to_i
 end
