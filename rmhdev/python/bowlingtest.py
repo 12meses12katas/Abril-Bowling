@@ -7,7 +7,7 @@ Unit test for bowling.py
 
 __author__ = "Rober Martín H"
 __version__ = "0.1"
-__date__ = "2011-04-26"
+__date__ = "2011-04-30"
 __copyright__ = "Copyright (c) 2011 Rober Martín H"
 __license__ = "MIT License"
 
@@ -42,6 +42,7 @@ class TestKnownValues(unittest.TestCase):
         (89 , "349-3--95/X3--1X-7"),
         (137, "729-9-9-9/9/XX8-71"),
         (133, "9/8/X7/53348/-78/-/8"),
+        (100, "1/-99-6-157-8/7-9-XX-"),
     );
 
     def testGetScore(self):
