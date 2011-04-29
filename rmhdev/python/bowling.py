@@ -20,9 +20,7 @@ def getScore(sequence):
     return score
 
 def getFirstFrame(sequence):
-    if isSpare(sequence):
-        return sequence[:3]
-    if isStrike(sequence):
+    if isSpare(sequence) or isStrike(sequence):
         return sequence[:3]
     return sequence[:2]
 
