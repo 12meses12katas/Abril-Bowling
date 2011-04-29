@@ -14,8 +14,21 @@ __license__ = "MIT License"
 def getScore(sequence):
     if sequence == "":
         return 0
-    score = 0
     frame = getFirstFrame(sequence)
+    restOfSequence = removeFirstPins(sequence)
+    score = getScoreOfFrame(frame)
+    return score + getScore(restOfSequence)
+
+def getFirstFrame(sequence):
+    return sequence[:2]
+
+def removeFirstPins(sequence):
+    if sequence[0] == "X":
+        return sequence[1:]
+    return sequence[2:]
+
+def getScoreOfFrame(frame):
+    score = 0
     for pin in frame: 
         if pin == "-":
             score += 0
@@ -25,13 +38,4 @@ def getScore(sequence):
             score = 10
         else:
             score += int(pin)
-    restOfSequence = removeFirstFrame(sequence)
-    return score + getScore(restOfSequence)
-
-def getFirstFrame(sequence):
-    return sequence[:2]
-
-def removeFirstFrame(sequence):
-    if sequence[0] == "X":
-        return sequence[1:]
-    return sequence[2:]
+    return score
