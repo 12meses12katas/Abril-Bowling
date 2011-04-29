@@ -12,8 +12,11 @@ __copyright__ = "Copyright (c) 2011 Rober Martín H"
 __license__ = "MIT License"
 
 def getScore(sequence):
+    if sequence == "":
+        return 0
     score = 0
-    for pin in sequence[:2]: 
+    frame = getFirstFrame(sequence)
+    for pin in frame: 
         if pin == "-":
             score += 0
         elif pin == "X":
@@ -22,4 +25,13 @@ def getScore(sequence):
             score = 10
         else:
             score += int(pin)
-    return score 
+    restOfSequence = removeFirstFrame(sequence)
+    return score + getScore(restOfSequence)
+
+def getFirstFrame(sequence):
+    return sequence[:2]
+
+def removeFirstFrame(sequence):
+    if sequence[0] == "X":
+        return sequence[1:]
+    return sequence[2:]
