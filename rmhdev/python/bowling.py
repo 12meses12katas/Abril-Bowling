@@ -12,6 +12,14 @@ __copyright__ = "Copyright (c) 2011 Rober Martín H"
 __license__ = "MIT License"
 
 def getScore(sequence):
+    if sequence[:2] == "-1":
+        return 1
+    if sequence[:2] == "-2":
+        return 2
+    if sequence[:2] == "-3":
+        return 3
+    if sequence[:2] == "-/":
+        return 10
     if sequence[0] == "-":
         return 0
     if sequence[0] == "X":
