@@ -20,14 +20,14 @@ def getScore(sequence):
     return score + getScore(restOfSequence)
 
 def getFirstFrame(sequence):
-    if len(sequence) > 1 and sequence[1] == "/":
+    if isSpare(sequence):
         return sequence[:3]
-    if sequence[0] == "X":
+    if isStrike(sequence):
         return sequence[:3]
     return sequence[:2]
 
 def removeFirstPins(sequence):
-    if sequence[0] == "X":
+    if isStrike(sequence):
         return sequence[1:]
     return sequence[2:]
 
@@ -43,3 +43,9 @@ def getScoreOfFrame(frame):
         else:
             score += int(pin)
     return score
+
+def isStrike(frameOrSequence):
+    return frameOrSequence[0] == "X"
+
+def isSpare(frameOrSequence): 
+    return len(frameOrSequence) > 1 and frameOrSequence[1] == "/"
