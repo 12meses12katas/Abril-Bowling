@@ -5,25 +5,25 @@ describe("Bowling Kata", function() {
     });
     
     it("Should score Zero when no pins are knocked", function() {
-      for (var i = 0; i < 20; i++) {
-        game.roll(0); 
-      }
+      rollPins(0);
       expect(game.score()).toBe(0);
     });
 
     it("should return 20 with 1 in all rols", function() {
-      for (var i = 0; i < 20; i++) {
-        game.roll(1);
-      };
+      rollPins(1);
       expect(game.score()).toEqual(20);
     });
     
     it("should return 40 with 2 in all rolls", function() {
-      for (var i = 0; i < 20; i++) {
-        game.roll(2);
-      };
+      rollPins(2);
       expect(game.score()).toEqual(40);
     });
+
+    function rollPins(numberOfPins){
+      for (var i = 0; i < 20; i++) {
+        game.roll(numberOfPins);
+      };
+    }
 });  
 
 var Game = function() {
