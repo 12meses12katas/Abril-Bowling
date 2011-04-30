@@ -29,10 +29,6 @@ describe("Bowling Kata", function() {
 var Game = function() {
   var totalScore = 0;
 
-  var setTotalScore = function(total) {
-    this.totalScore = 0;
-  };
-
   var roll = function(number) {
     totalScore += number;
   };
@@ -42,7 +38,6 @@ var Game = function() {
   };
 
   return {
-    setScore: setTotalScore,
     roll: roll,
     score: score
   };
