@@ -1,47 +1,17 @@
-(ns kata.bowling)
+(ns bowling
+  (:use (midje sweet)))
 
-(defn knocked-pins [frame]
-  (if-let [s (seq frame)]
-    (apply + (take 2 s)) 0))
+(future-fact "The game score is the total of all frame scores"
+      (game-score)=> (roughly 150 150))
 
-(defn bonus-score [throws bonus]
-  (apply + bonus throws))
+(future-fact "Each game includes ten turns or frames")
 
-(def total-pins 10)
+(future-fact "In each frame, the bowler gets up to two tries to knock down all the pins.")
 
-(defn regular-throw? [frame]
-  (< (knocked-pins frame) total-pins))
+(future-fact "If in two tries, he fails to knock them all down, his score for that frame is the total number of pins knocked down in his two tries.")
 
-(defn spare? [frame]
-  (= (knocked-pins frame) total-pins))
+(future-fact "If in two tries he knocks them all down, this is called a spare and his score for the frame is ten plus the number of pins knocked down on his next throw (in his next turn)")
 
-(defn strike? [frame]
-  (= (first frame) total-pins))
+(future-fact "If on his first try in the frame he knocks down all the pins, this is called a strike. His turn is over, and his score for the frame is ten plus the simple total of the pins knocked down in his next two rolls.")
 
-(defn next-throws [frames num]
-  (when (seq frames)
-    (take num (apply concat
-                     (rest frames)))))
-
-(def actual-frame first)
-
-(defn frame-score [frames]
-  (let [actual (actual-frame frames)]
-    (if (regular-throw? actual)
-      (knocked-pins actual)
-      (let [n (cond (strike? actual) 2
-                    (spare? actual) 1)
-            throws (next-throws frames n)
-            bonus (bonus-score throws 10)]
-        bonus))))
-
-;; This function belongs to other ns (not tested)
-(defn maplist [f & colls]
-  (apply map f
-         (map #(take (count %) (iterate rest %)) colls)))
-
-(defn sum-with [f coll]
-  (apply + (take 10 (maplist f coll))))
-
-(defn game-score [frames] 
-  (sum-with frame-score frames))
+(future-fact "If he gets a spare or strike in the last (tenth) frame, the bowler gets to throw one or two more bonus balls, respectively. These bonus throws are taken as part of the same turn. If the bonus throws knock down all the pins, the process does not repeat: the bonus throws are only used to calculate the score of the final frame.")
