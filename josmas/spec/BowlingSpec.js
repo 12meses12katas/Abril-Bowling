@@ -72,18 +72,18 @@ var Game = function() {
     for (var frame = 0; frame < 10; frame+=1) {
       if ( isStrike(i) ) {
         totalScore += 10;
-        if (Number(rolls[i+1]))
-          totalScore += Number(rolls[i+1]);
-        if (Number(rolls[i+2]))
-          totalScore += Number(rolls[i+2]);
+        if (rolls[i+1])
+          totalScore += rolls[i+1];
+        if (rolls[i+2])
+          totalScore += rolls[i+2];
         i += 1;
       }
       else if ( isSpare(i) ) {
-        totalScore += (10 + Number(rolls[i+2]));
+        totalScore += (10 + rolls[i+2]);
         i += 2;
       }
       else {
-        totalScore += (Number(rolls[i]) + Number(rolls[i+1]));
+        totalScore += (rolls[i] + rolls[i+1]);
         i += 2;
       }
     };
@@ -91,11 +91,11 @@ var Game = function() {
   };
 
   var isSpare = function(index) {
-    return (Number(rolls[index]) + Number(rolls[index+1]) === 10);
+    return ((rolls[index] + rolls[index+1]) === 10);
   };
 
   var isStrike = function(index) {
-    return (Number(rolls[index]) === 10);
+    return (rolls[index] === 10);
   };
   return {
     roll: roll,
