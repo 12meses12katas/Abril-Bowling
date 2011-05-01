@@ -3,7 +3,7 @@ Given /^a score card with "([^"]*)"$/ do |notation|
   @score_card.notation = notation
 end
 
-When /^I ask the total points$/ do
+When /^I ask the total score$/ do
   @total_score = @score_card.total_score
 end
 
