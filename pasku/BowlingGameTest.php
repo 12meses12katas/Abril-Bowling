@@ -4,7 +4,7 @@ require_once 'BowlingGame.php';
 
 class BowlingGameTest extends PHPUnit_Framework_TestCase
 {
-    protected $_game;
+    protected $game;
 
     public function setUp()
     {
