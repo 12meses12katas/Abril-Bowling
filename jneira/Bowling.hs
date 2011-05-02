@@ -39,18 +39,23 @@ frameScore frame bonusFrames =
             (Regular,Frame x (Just y), _) -> Right $ x+y 
             (Spare,_,(x:_)) -> Right $ bonus + x  
             (Strike,_,(x:y:_)) -> Right $ bonus + x + y
-            _ -> Left $ "Input invalid. Frame: " ++ show frame ++
+            _  -> Left $ "Input invalid. Frame: " ++ show frame ++
                         ". Bonus: " ++ show bonusThrows ++ "."
+
+
 
 throws :: [Frame] -> [Throw]
 throws [] = []
 throws (Frame x (Just y) : xs) = x:y:throws xs 
 throws (Frame x Nothing : xs) = x:throws xs 
 
+numFramesGame=10
+
 gameScore :: Game -> Either [ErrorMsg] Score
 gameScore game = 
-  let frs= take 10 $ tails game    
+  let frs= take numFramesGame $ tails game    
       score (h:t)= frameScore h t 
+      score [] = Left "Lista de turnos insuficiente"
       scores = map score frs 
   in case partitionEithers scores of 
     ([],scores) -> Right $ sum scores 
@@ -116,15 +121,23 @@ testGameScore =
                 Frame 0 $ Just 8, Frame 8 $ Just 2, Frame 0 $ Just 6,
                 strike,strike,Frame 7 $ Just 2]
       game 7 = replicate 9 (Frame 0 $ Just 0) ++ [strike,Frame 2 $ Just 3]
-      game 8 = replicate 7 (Frame 0 $ Just 0) ++ [strike,Frame 2 $ Just 3]
-  in TestCase $ 
-     
-     assertEqual 
-     "Devuelve el resultado del juego completo segun las reglas"
-     (map gameScore $ map game $ [1..8]) 
-     ([Right 300, Right 150,Right 90,Right 20,
-       Right 60,Right 145,Right 15,Right 20])
+      game 8 = replicate 8 (Frame 0 $ Just 0) ++ [strike,Frame 2 $ Just 3]
+  in TestCase $ do
     
+    assertEqual 
+      "Devuelve el resultado del juego completo segun las reglas"
+      (map gameScore $ map game $ [1..8]) 
+      ([Right 300, Right 150,Right 90,Right 20,
+       Right 60,Right 145,Right 15,Right 20])
+    assertEqual
+      "Si la lista de turnos es menor que el numero de turnos por juego devuelve un error especifico."
+      (map ((either last undefined).gameScore) [[],[strike],replicate 9 strike])
+      (replicate 3 "Lista de turnos insuficiente")
+    
+    assertEqual
+      "Caso de que los turnos esten incorrectamente representados la funcion devolvera una lista con un error por cada uno de ellos"
+      (gameScore $ [Frame 5 Nothing, Frame 6 $ Just 5, Frame 11 Nothing, Frame (-1) Nothing] ++ replicate 5 (Frame 0 $ Just 0) ++  [Frame 10 Nothing]) 
+      (Left ["Frame invalid: Frame 5 Nothing","Frame invalid: Frame 6 (Just 5)","Frame invalid: Frame 11 Nothing","Frame invalid: Frame (-1) Nothing","Input invalid. Frame: Frame 10 Nothing. Bonus: []."])  
 
 main= runTestTT $ TestList [testResult,testFrameScore,testThrows,testGameScore]
 
