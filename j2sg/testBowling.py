@@ -7,10 +7,14 @@
 import unittest, bowling
 
 class TestBowling(unittest.TestCase):
-	# Test Cases
-	tcs={	'XXXXXXXXXXXX':300,
+	# Bowling.play(rolls) Test Cases
+	tcs_pl={'XXXXXXXXXXXX':300,
 		'9-9-9-9-9-9-9-9-9-9-':90,
-		'5/5/5/5/5/5/5/5/5/5/5':150}
+		'5/5/5/5/5/5/5/5/5/5/5':150,
+		'--------------------':0,
+		'-/-/-/-/-/-/-/-/-/-/-':100,
+		'17524181276236547114':77,
+		'436/5-8-7/X726/X65':124}
 
 	# Set Software Under Test
 	def setUp(self):
@@ -18,8 +22,8 @@ class TestBowling(unittest.TestCase):
 	
 	# Unit Testing
 	def test_play(self):
-		for key in self.tcs:
-			self.assertEqual(self.tcs[key],self.sut.play(key))
+		for key in self.tcs_pl:
+			self.assertEqual(self.tcs_pl[key],self.sut.play(key))
 
 if __name__ == '__main__':
 	unittest.main()
