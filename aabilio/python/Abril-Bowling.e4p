@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Project SYSTEM "Project-4.6.dtd">
+<!-- eric4 project file for project Abril-Bowling -->
+<!-- Saved: 2011-04-11, 06:38:26 -->
+<!-- Copyright (C) 2011 aabilio, aabilio@gmail.com -->
+<Project version="4.6">
+  <Language></Language>
+  <ProgLanguage mixed="0">Python</ProgLanguage>
+  <ProjectType>Console</ProjectType>
+  <Description>12meses12katas: Abril - Bowling</Description>
+  <Version>0.1</Version>
+  <Author>aabilio</Author>
+  <Email>aabilio@gmail.com</Email>
+  <Sources>
+    <Source>__init__.py</Source>
+    <Source>bowling.py</Source>
+    <Source>testBowling.py</Source>
+  </Sources>
+  <Forms>
+  </Forms>
+  <Translations>
+  </Translations>
+  <Resources>
+  </Resources>
+  <Interfaces>
+  </Interfaces>
+  <Others>
+    <Other>README</Other>
+  </Others>
+  <MainScript>bowling.py</MainScript>
+  <Vcs>
+    <VcsType>None</VcsType>
+  </Vcs>
+  <FiletypeAssociations>
+    <FiletypeAssociation pattern="*.pyw" type="SOURCES" />
+    <FiletypeAssociation pattern="*.idl" type="INTERFACES" />
+    <FiletypeAssociation pattern="*.py" type="SOURCES" />
+    <FiletypeAssociation pattern="*.ptl" type="SOURCES" />
+  </FiletypeAssociations>
+</Project>

@@ -1,0 +1,29 @@
+FUNCIONAMIENTO:
+==============
+
+Yo basándome en el principio de que no se debe validar ningún dato y que se dará un resultado válido para un cadena (introducida) válida pensé en hacerlo de la siguiente forma:
+
+--Play() que es la función que lo hace todo:
+ | _ Primero llama a la función que busca el final normal (vamos, que separe los dos tiros adicionales si el último fue
+     Strike o el tira adicional si el último "normal" fue      Spare) 
+ |_ Con un bucle for() recorre por índices la cadena introducida hasta el valor devuelto por la función comentada
+     anteriormente (es decir, solo recorre los tiros "normales")
+    |_ Va buscando: las opciones serán que sea "X" y sume 10 + el_siguiente + el_siguiente, que sea "/" y entonces se
+       suma 10 + el_siguiente o que sea un número (isNumOrGuion comprueba si es número o guión) y se suma el número 
+       (siempre sumándose todo en la misma variable, claro está). En esta opción final se comprueba si el_siguiente es un 
+       "/" para no sumar el valor, ya que será en la siguiente iteración 10 (del Spare) (esto es posible claro ya que s 
+       presupone que la cadena introducida va a ser válida).
+
+Y no es más, no se me ocurrió manera más fácil (de codificar y de leer) para implementarlo. Evidentemente, de la manera 
+que está implementado, si se quisiera validar la cadena de puntuación introducida el código quedaría mucho más ilegible y 
+seguramente esta forma sería inútil.
+
+LANZAMIENTO:
+============
+
+python bowling.py <cadena> (p.ej.: XXXXXXXXXXXX)
+
+UNITTEST:
+=========
+
+El codigo de unnitest que se presenta es el de j2sg por que con una pequeña modificación me sirve para mi script
